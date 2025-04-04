@@ -130,8 +130,8 @@ const Stepper = () => {
   };
 
   const steps = [
-    { title: "Basic Info", component: Step1 },
-    { title: "Medical History", component: Step2 },
+    { title: "Basic ", component: Step1 },
+    { title: "Medical ", component: Step2 },
     { title: "Exercise", component: Step3 },
     { title: "Sleep", component: Step4 },
     { title: "Goals", component: Step5 },
@@ -147,36 +147,42 @@ const Stepper = () => {
         <div className="relative">
           <div className="flex justify-between items-center gap-0 md:gap-28">
             {steps.map((s, index) => (
-              <div key={index} className="flex-1 text-center relative z-10">
+              <div key={index} className=" text-center relative z-10">
                 {/* Step Circle */}
                 <div
                   className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mx-auto rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-105 ${step > index + 1
-                      ? "bg-[#EF4123] text-white shadow-md"
-                      : step === index + 1
-                        ? "bg-[#EF4123] text-white shadow-lg scale-110"
-                        : "bg-gray-200 text-gray-600"
+                    ? "bg-[#EF4123] text-white shadow-md"
+                    : step === index + 1
+                      ? "bg-[#EF4123] text-white shadow-lg scale-110"
+                      : "bg-gray-200 text-gray-600"
                     }`}
                 >
                   <span className="font-semibold text-sm sm:text-base">{index + 1}</span>
                 </div>
                 {/* Step Title */}
-                <p
-                  className={`mt-2 sm:mt-3 text-xs sm:text-sm md:text-base font-medium transition-colors duration-300 line-clamp-1  ${step >= index + 1 ? "text-[#EF4123] font-semibold" : "text-gray-400"
-                    }`}
-                >
-                  {s.title}
-                </p>
+
               </div>
             ))}
           </div>
           {/* Progress Line */}
-          <div className="absolute top-4 sm:top-5 md:top-[22px] w-[calc(100%-64px)] sm:w-[calc(100%-80px)] md:w-[calc(100%-96px)] left-8 sm:left-10 md:left-12 h-1 sm:h-2 bg-gray-700 rounded-full">
+          <div className="absolute top-4 sm:top-5 md:top-[22px] w-full left-0 h-1 sm:h-2 bg-gray-700 rounded-full">
             <div
               className="h-1 sm:h-2 bg-gradient-to-r from-[#EF4123] to-[#FF6B4A] rounded-full transition-all duration-500 ease-out"
               style={{ width: `${((step - 1) / (steps.length - 1)) * 100}%` }}
             ></div>
           </div>
         </div>
+        <div className="flex justify-between items-center ">
+          {steps.map((s, index) => (
+            <p key={index}
+              className={`mt-2 sm:mt-3 text-xs sm:text-sm md:text-base font-medium transition-colors duration-300   ${step >= index + 1 ? "text-[#EF4123] font-semibold" : "text-gray-400"
+                }`}
+            >
+              {s.title}
+            </p>
+          ))}
+        </div>
+
 
         {/* Step Content with Slide Animation */}
         <div className="step-content" ref={contentRef}>
