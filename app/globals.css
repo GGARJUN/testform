@@ -1,26 +1,286 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@import "tailwindcss";
+
+/* Stepper Content Animation */
+.step-content {
+  position: relative;
+
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.step-content > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Slide from right (next step) */
+.step-content > div.active.slide-right {
+  opacity: 1;
+  transform: translateX(0);
 }
 
+.step-content > div.exiting.slide-right {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+/* Slide from left (previous step) */
+.step-content > div.active.slide-left {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.step-content > div.exiting.slide-left {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+/* Initial state for entering */
+.step-content > div.slide-right {
+  transform: translateX(100%);
+}
+
+.step-content > div.slide-left {
+  transform: translateX(-100%);
+}
+
+/* General Enhancements for Dark Theme */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #000000; /* Black background for the page */
+  color: #ffffff; /* Default text color for contrast */
+}
+
+input,
+textarea {
+  background-color: #1a1a1a; /* Dark background for inputs */
+  color: #ffffff; /* White text for inputs */
+
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Prevent textarea resizing */
+textarea {
+  resize: none; /* Disables resizing of textarea */
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: red;
+
+}
+
+/* Remove number input arrows */
+input[type="number"] {
+  -webkit-appearance: none; /* Remove arrows in Chrome, Safari, Edge */
+  -moz-appearance: textfield; /* Remove arrows in Firefox */
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Remove arrows in Chrome, Safari, Edge */
+  margin: 0; /* Remove any default margin */
+}
+
+button {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+
+.custom-slider {
+  background: #4b5563;
+  border-radius: 9999px;
+  height: 4px;
+}
+
+.custom-slider::-webkit-slider-runnable-track {
+  background: #4b5563;
+  height: 4px;
+  border-radius: 9999px;
+}
+
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #EF4123;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -6px;
+}
+
+.custom-slider::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    to right,
+    #EF4123 0%,
+    #EF4123 var(--slider-fill, 0%),
+    #4b5563 var(--slider-fill, 0%),
+    #4b5563 100%
+  );
+}
+
+.custom-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #EF4123;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.custom-slider::-moz-range-track {
+  background: #4b5563;
+  height: 4px;
+  border-radius: 9999px;
+}
+
+.custom-slider::-moz-range-progress {
+  background: #EF4123;
+  height: 4px;
+  border-radius: 9999px;
+}
+
+/* Updated fill calculation for 0-10 range */
+.custom-slider {
+  --slider-fill: calc(var(--value) / 10 * 100%);
+}
+
+/* ==================== */
+/* CHECKBOX STYLES */
+/* ==================== */
+input[type="checkbox"] {
+  /* Remove default styling */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  /* Custom styling */
+  width: 20px;
+  height: 20px;
+  border: 2px solid #6b7280; /* gray-500 */
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* Checkbox checked state */
+input[type="checkbox"]:checked {
+  background-color: #EF4123;
+  border-color: #EF4123;
+}
+
+/* Checkbox hover state */
+input[type="checkbox"]:hover:not(:checked) {
+  border-color: #EF4123;
+  opacity: 0.7;
+}
+
+/* Checkbox checkmark */
+input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+}
+
+/* Checkbox focus state */
+input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(239, 65, 35, 0.3);
+}
+
+/* Checkbox disabled state */
+input[type="checkbox"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==================== */
+/* RADIO BUTTON STYLES */
+/* ==================== */
+input[type="radio"] {
+  /* Remove default styling */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  /* Custom styling */
+  width: 20px;
+  height: 20px;
+  border: 2px solid #6b7280; /* gray-500 */
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* Radio button checked state */
+input[type="radio"]:checked {
+  border-color: #EF4123;
+}
+
+/* Radio button hover state */
+input[type="radio"]:hover:not(:checked) {
+  border-color: #EF4123;
+  opacity: 0.7;
+}
+
+/* Radio button inner dot */
+input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-color: #EF4123;
+  border-radius: 50%;
+}
+
+/* Radio button focus state */
+input[type="radio"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(239, 65, 35, 0.3);
+}
+
+/* Radio button disabled state */
+input[type="radio"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==================== */
+/* LABEL STYLES (optional) */
+/* ==================== */
+.checkbox-label,
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  color: #374151; /* gray-700 */
+  font-size: 14px;
 }
